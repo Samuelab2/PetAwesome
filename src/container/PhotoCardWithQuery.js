@@ -2,8 +2,9 @@ import React from 'react'
 import { PhotoCard } from '../components/PhotoCard'
 import { gql } from 'apollo-boost'
 import { Query } from 'react-apollo'
+import Skeleton from 'react-loading-skeleton'
 
-const query = gql`
+const GET_SINGLE_PHOTO = gql`
   query getSinglePhoto($id:ID!) {
     photo(id:$id) {
       id
@@ -16,15 +17,16 @@ const query = gql`
   }
 `
 
+const renderProp = ({ loading, error, data }) => {
+  if (loading) return <Skeleton height={100} />
+  if (error) return <p>Error!</p>
+
+  const { photo = {} } = data
+  return <PhotoCard {...photo} />
+}
+
 export const PhotoCardWithQuery = ({ id }) => (
-  <Query query={query} variables={{ id }}>
-    {
-      ({ loading, error, data }) => {
-        if (loading)
-          return <h1>Loading</h1>
-        const { photo = {} } = data
-        return <PhotoCard {...photo} />
-      }
-    }
+  <Query query={GET_SINGLE_PHOTO} variables={{ id }}>
+    {renderProp}
   </Query>
 )
