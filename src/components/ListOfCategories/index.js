@@ -39,7 +39,7 @@ export const ListOfCategories = () => {
         ? [1, 2, 3, 4].map(id => <Skeleton key={id} circle={true} height={50} width={50} />)
         : categories.map(category =>
           <Item key={category.id}>
-            <Category {...category}/>
+            <Category {...category} path={`/pet/${category.id}`}/>
           </Item>)
     }
   </List>
