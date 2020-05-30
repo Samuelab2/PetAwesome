@@ -1,9 +1,9 @@
 import React from 'react'
 import { FavsWithQuery } from '../container/GetFavorite'
+import { Layout } from '../components/Layout'
 
 export const Favs = () => (
-  <>
-  <h1>Favs</h1>
-  <FavsWithQuery />
-  </>
+  <Layout title='PetAwesome - Favorites photos' subtitle='Here are your most liked photos'>
+    <FavsWithQuery />
+  </Layout>
 )
